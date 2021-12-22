@@ -1,0 +1,18 @@
+[package]
+name = "wmtlib"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0.72"
+comfy-table = "5.0.0"
+anyhow = "1.0.51"
+crates_io_api = "0.7.3"
+chrono = "0.4.19"
+cargo_toml = "0.10.2"
+tracing = "0.1.29"
+tokio = {version = "1.15.0", features = ["full"] }
+reqwest = {version = "0.11.7", features = ["blocking", "json"] }
+select = "0.6.0-alpha.1"
+octocrab = "0.15.2"
