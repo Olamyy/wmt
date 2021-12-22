@@ -8,7 +8,7 @@ Johnson's [The Well-Maintained Test](https://adamj.eu/tech/2021/11/04/the-well-m
 For a given cargo crate (or cargo manifest), `wmt` checks if the crate (or dependencies in the manifest) passes all 12
 tests (or a specific one).
 
-# Available
+# Available Commands
 
 USAGE:
 ``wmt [OPTIONS] <SUBCOMMAND>``
