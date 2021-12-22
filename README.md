@@ -11,6 +11,7 @@ tests (or a specific one).
 # Available Commands
 
 USAGE:
+
 ``wmt [OPTIONS] <SUBCOMMAND>``
 
 OPTIONS:
