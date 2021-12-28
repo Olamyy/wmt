@@ -1,0 +1,77 @@
+{
+  "version": "0.0.1",
+  "questions": [
+    {
+      "number": "1",
+      "name": "ProductionReadiness",
+      "question": "Is it described as production ready?",
+      "explanation": "We want to see evidence that the maintainers consider the software as ready for use in production.The documentation shouldn’t have any banners or wording implying a future stable release.The version number should not be a pre-release, alpha, beta, release candidate, etc. Note that some maintainers stick with a “zero version number” like 0.4.0, even when they consider the package production ready."
+    },
+    {
+      "number": "2",
+      "name": "Documentation",
+      "question": "Is there sufficient documentation?",
+      "explanation": "If we can’t find information on what the package currently does, it seems doubtful the future will be easy.“Sufficient” varies based upon: the scope of the library, the ecosystem, and your preferences.Documentation comes in many forms: a README file, a documentation site, a wiki, blog posts, etc. Hopefully the package doesn’t make you hunt for it."
+    },
+    {
+      "number": "3",
+      "name": "Changelog",
+      "question": "Is there a changelog?",
+      "explanation": "A changelog, or a release notes page, is vital for our ability to update the package. The changelog is the main place for communication of breaking changes. (A case for changelogs is made at keepachangelog.com.)Changelogs come in many forms: a single file, a documentation section, GitHub release descriptions, etc. Again, hopefully the package doesn’t make you hunt for it.Note that some projects “have a changelog”, but it has stopped being maintained since the project’s inception. So check that the changelog covers recent releases."
+    },
+    {
+      "number": "4",
+      "name": "Tests",
+      "question": "Are there sufficient tests?",
+      "explanation": "Tests give us confidence that future changes will not result in bugs.Again, “sufficient” is context-dependent: testing norms in our language and ecosystem, ease of testing the functionality, and personal preferences.Measurement of test coverage is normally a sign that the tests are higher quality. With coverage, maintainers can at least tell when changes affect untested code.If there’s no proof of coverage, it’s worth opening a few test files, to check that they aren’t auto-created empty skeletons."
+    },
+    {
+      "number": "5",
+      "name": "BugReportResponse",
+      "question": "Is someone responding to bug reports?",
+      "explanation": "If recent bug reports have gone unanswered, it may be a sign that the package is no longer maintained. It’s worth ignoring any “spammy” open issues, and checking for recently closed issues since they are activity.Check for issues like “is this still maintained?”… the answer is probably “no”, per Betteridge's law of headlines."
+    },
+    {
+      "number": "6",
+      "name": "TestsRunAgainstLatestLanguageVersion",
+      "question": "Are the tests running with the latest <Language> version?",
+      "explanation": "Most programming languages iterate regularly. Python has annual releases, as does JavaScript (ECMAScript). If a package we’re considering doesn’t support the latest version, it may prevent us from upgrading.We can grant some leeway for very recent language versions. If Python 3.10 was released last Tuesday, we cannot expect every package to be up to date.Testing against a new language version can be an easy way to contribute. Often the new version only needs adding to the test matrix, although that may reveal some bugs."
+    },
+    {
+      "number": "7",
+      "name": "TestsRunAgainstLatestIntegrationVersion",
+      "question": "Are the tests running with the latest <Integration> version?",
+      "explanation": "<Integration> here could mean a framework that the package is based on, like Django, or something the package interfaces with, like PostgreSQL. It could mean several things, in which case we can check them all.The same conditions apply as for the latest <Language> version. And again, adding tests for a new version may be an easy way to contribute."
+    },
+    {
+      "number": "8",
+      "name": "ContinuousIntegrationConfiguration",
+      "question": "Is there a Continuous Integration (CI) configuration?",
+      "explanation": "If there are tests, it’s likely there’s a CI system set up, such as GitHub Actions. We should check that this in place, and running correctly for recent changes."
+    },
+    {
+      "number": "9",
+      "name": "ContinuousIntegrationPasses",
+      "question": "Is the CI passing?",
+      "explanation": "Some projects configure CI but then ignore it or leave it unmaintained. CI may be failing, for one or more <Language> or <Framework> versions. If this has gone on for a while, it is a sign that maintenance is lagging.Sometimes CI failure is caused by a single small bug, so fixing it may be a quick contribution. It can also be the case that old versions of <Language> or <Integration>s can simply be dropped."
+    },
+    {
+      "number": "10",
+      "name": "Usage",
+      "question": "Does it seem relatively well used?",
+      "explanation": "We can guesstimate usage by checking recent download counts, and to a lesser extent, popularity metrics like GitHub’s “stars”. Many package indexes, like npm, show download counts on package pages. For PyPI, we can use pypistats.org.We can only compare usage relative to similar packages, popularity of any <Integration>s, and our <Language>. A particularly niche tool may see minimal usage, but it might still beat any “competitor” packages."
+    },
+    {
+      "number": "11",
+      "name": "LatestCommits",
+      "question": "Has there been a commit in the last year?",
+      "explanation": "Maintainers tend to abandon packages rather than explicitly mark them as unmaintained. So the probability of future maintenance drops off the longer a project has not seen a commit.We’d like to see at least one recent commit as a “sign of life”.Any cutoff is arbitrary, but a year aligns with most programming languages’ annual release cadence."
+    },
+    {
+      "number": "12",
+      "name": "LatestRelease",
+      "question": "Has there been a release in the last year",
+      "explanation": "A backlog of unreleased commits can also be a sign of inattention. Active maintainers may have permission to merge but not release, with the true “owner” of the project absent."
+    }
+  ]
+}

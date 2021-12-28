@@ -1,0 +1,25 @@
+[package]
+name = "wmtcli"
+version = "0.1.0"
+edition = "2021"
+authors = ["Olamilekan Wahab <olamyy53@gmail.com>"]
+license = "MIT"
+description = "A Rust implementation of Adam Johnson's The Well-Maintained Test"
+repository = "https://github.com/olamyy/wmt"
+keywords = ["wmt"]
+readme = "README.md"
+rust-version = "1.57.0"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+wmtlib = { version = "0.1.0", path = "../wmtlib" }
+clap = { version = "3.0.0-rc.0", features = ["color", "derive", "cargo", "wrap_help"] }
+anyhow = "1.0.51"
+tracing = "0.1.29"
+tracing-subscriber = "0.3.3"
+tokio = "1.15.0"
+
+[[bin]]
+name = "wmt"
+path = "src/main.rs"

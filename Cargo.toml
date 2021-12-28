@@ -1,0 +1,13 @@
+[workspace]
+
+members = [
+    "wmtcli",
+    "wmtlib",
+]
+
+default-members = ["wmtcli"]
+
+[profile.release]
+opt-level = "s"
+lto = true
+codegen-units = 1
