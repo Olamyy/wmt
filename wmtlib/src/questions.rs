@@ -1,9 +1,11 @@
-use crate::constants::QUESTIONS_PATH;
-use crate::result::CommandResult;
-use crate::utils::log_if_verbose;
-use serde::{Deserialize, Serialize};
 use std::fs::File;
 use std::io::BufReader;
+
+use serde::{Deserialize, Serialize};
+
+use crate::constants::QUESTIONS_PATH;
+use crate::log_if_verbose;
+use crate::result::CommandResult;
 
 #[derive(Debug, Serialize, Deserialize, PartialEq)]
 pub enum CheckNames {

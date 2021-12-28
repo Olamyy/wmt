@@ -1,7 +1,8 @@
 use anyhow::Error;
 use clap::{AppSettings, Parser, Subcommand};
 use tracing::Level;
-use wmtlib::{DependencyCheck, Questions};
+
+use wmtlib::{CrateCheck, Questions};
 
 #[derive(Subcommand, Debug)]
 enum Commands {
@@ -9,9 +10,9 @@ enum Commands {
     #[clap(setting(AppSettings::ArgRequiredElseHelp))]
     Question {
         /// Get a specific question
-        #[clap(help="Describe a specific question",
-        conflicts_with="list-questions",
-        possible_values=["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"])]
+        #[clap(help = "Describe a specific question",
+        conflicts_with = "list-questions",
+        possible_values = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"])]
         number: Option<String>,
         /// Get the list of questions
         #[clap(long = "list-questions", short = 'l', help = "List the questions")]
@@ -80,9 +81,12 @@ pub fn run() -> Result<(), Error> {
             dependencies,
             question,
         } => {
-            let dependency_checker = DependencyCheck::new(dependencies.to_owned(), verbose);
+            let dependency_checker = CrateCheck::new(dependencies.to_owned(), verbose);
             let results = dependency_checker.run_checks(question.to_owned());
-            dependency_checker.show_results(json, results)
+            match results.is_empty() {
+                true => {}
+                false => dependency_checker.show_results(json, results),
+            }
         }
 
         Commands::Question {

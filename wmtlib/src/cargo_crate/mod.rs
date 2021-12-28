@@ -1,31 +1,34 @@
-use crate::constants::MISSING_FIELD_PLACEHOLDER;
-use crate::services::CratesService;
-use cargo_toml::{DependencyDetail, DepsSet, Manifest};
-use chrono::{DateTime, Utc};
 use std::option::Option;
 
+use anyhow::{anyhow, Result};
+use cargo_toml::{DependencyDetail, DepsSet, Manifest};
+use chrono::{DateTime, Utc};
+use crates_io_api::{CrateResponse, SyncClient};
+
+use crate::constants::{CRATES_API_RPS, CRATES_API_USER_AGENT, MISSING_FIELD_PLACEHOLDER};
+
 #[derive(Debug)]
-pub struct DependencyVersion {
+pub struct CrateVersion {
     pub local: Option<String>,
     pub remote: Option<String>,
 }
 
 #[derive(Debug)]
-pub struct Dependency {
+pub struct Crate {
     pub name: String,
     pub source_url: Option<String>,
     pub description: Option<String>,
     pub documentation: Option<String>,
     pub homepage: Option<String>,
-    pub version: Option<DependencyVersion>,
+    pub version: Option<CrateVersion>,
     pub created_at: Option<DateTime<Utc>>,
     pub updated_at: Option<DateTime<Utc>>,
     pub downloads: u64,
 }
 
-impl Dependency {
+impl Crate {
     pub fn from_source(github_url: String) -> Self {
-        Dependency {
+        Crate {
             name: "".to_string(),
             source_url: Option::from(github_url),
             description: None,
@@ -50,7 +53,7 @@ impl Dependency {
                 .detail()
                 .unwrap_or(&dependency_without_version)
                 .version;
-            let full_dependency = Dependency::from_name(dep.0, local_version.to_owned());
+            let full_dependency = Crate::from_name(dep.0, local_version.to_owned());
             dependencies.push(full_dependency)
         }
 
@@ -78,13 +81,13 @@ impl Dependency {
         let crate_client = CratesService::new();
         let crate_info = crate_client.get_crate(name.as_str()).unwrap().crate_data;
 
-        Dependency {
+        Crate {
             name,
             source_url: crate_info.repository,
             description: crate_info.description,
             documentation: crate_info.documentation,
             homepage: crate_info.homepage,
-            version: Option::from(DependencyVersion {
+            version: Option::from(CrateVersion {
                 remote: Option::from(crate_info.max_version),
                 local: local_version,
             }),
@@ -96,5 +99,29 @@ impl Dependency {
 
     fn extract_dependencies_from_manifest(path: String) -> DepsSet {
         Manifest::from_path(path).unwrap().dependencies
+    }
+}
+
+pub struct CratesService {
+    client: SyncClient,
+}
+
+impl CratesService {
+    pub fn new() -> Self {
+        let client = SyncClient::new(
+            CRATES_API_USER_AGENT,
+            std::time::Duration::from_millis(CRATES_API_RPS),
+        )
+            .unwrap();
+        CratesService { client }
+    }
+
+    pub fn get_crate(&self, crate_name: &str) -> Result<CrateResponse> {
+        return match self.client.get_crate(crate_name) {
+            Ok(response) => Ok(response),
+            Err(_) => Err(anyhow!(
+                "Could not retrieve the crate information. The crates.io API might be down."
+            )),
+        };
     }
 }
